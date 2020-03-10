@@ -1,6 +1,6 @@
 # Unsupervised Depth Completion Visual Inertial Odometry
 Tensorflow implementation of Unsupervised Depth Completion from Visual Inertial Odometry (in RA-L and ICRA 2020)
-[paper](https://arxiv.org/pdf/1905.08616.pdf)
+[[arxiv]](https://arxiv.org/pdf/1905.08616.pdf) [[poster]]()
 
 If you use this work, please cite our paper:
 ```
