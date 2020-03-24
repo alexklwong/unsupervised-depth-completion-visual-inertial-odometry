@@ -1,0 +1,8 @@
+.vscode
+data
+src/*.pyc
+src/__pycache__
+trained_models
+training
+validation
+testing
