@@ -29,11 +29,11 @@ If you use this work, please cite our paper:
 In the sparse-to-dense depth completion problem, we seek to infer the dense depth map of a 3-D scene using an RGB image and its associated sparse depth measurements in the form of a sparse depth map, obtained either from computational methods such as SfM (Strcuture-from-Motion) or active sensors such as lidar or structured light sensors.
 
 | *Input RGB image from the VOID dataset*    | *Densified depth map -- colored and back-projected to 3-D* |
-| :----------------------------------------- | :--------------------------------------------------------: |
+| :----------------------------------------: | :--------------------------------------------------------: |
 | <img src="figures/void_teaser.jpg" width="400"> | <img src="figures/void_teaser.gif"> |
 
 | *Input RGB image from the KITTI dataset*    | *Densified depth map -- colored and back-projected to 3-D* |
-| :------------------------------------------ | :--------------------------------------------------------: |
+| :-----------------------------------------: | :--------------------------------------------------------: |
 | <img src="figures/kitti_teaser.jpg" width="400"> | <img src="figures/kitti_teaser.gif"> |
 
 To follow the literature and benchmarks for this task, you may visit:
