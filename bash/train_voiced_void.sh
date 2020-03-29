@@ -12,7 +12,7 @@ python src/train_voiced.py \
 --n_width 640 \
 --n_channel 3 \
 --n_epoch 20 \
---learning_rates 1.00e-4,0.50e-4,0.25e-4 \
+--learning_rates 0.50e-4,0.25e-4,0.12e-4 \
 --learning_bounds 12,16 \
 --occ_threshold 1.5 \
 --occ_ksize 7 \
@@ -24,7 +24,7 @@ python src/train_voiced.py \
 --w_ph 1.00 \
 --w_co 0.20 \
 --w_st 0.80 \
---w_sm 0.10 \
+--w_sm 0.15 \
 --w_sz 1.00 \
 --w_pc 0.10 \
 --pose_norm frobenius \
