@@ -58,7 +58,7 @@ VOICED is an unsupervised depth completion method that is built on top of [XIVO]
 
 This paradigm allows us to achieve the state-of-the-art on the unsupervised depth completion task while reducing parameters by as much as 80% compared to prior-arts. As an added bonus, our approach does not require top of the line GPUs (e.g. Tesla V100, Titan V) and can be deployed on much cheaper hardware.
 
-## Setting up your virtual environment <a name="setting-upt"></a>
+## Setting up your virtual environment <a name="setting-up"></a>
 We will create a virtual environment with the necessary dependencies
 ```
 virtualenv -p /usr/bin/python3 voiced-py3env
