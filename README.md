@@ -50,7 +50,7 @@ To follow the literature and benchmarks for this task, you may visit:
 [Awesome State of Depth Completion](https://github.com/alexklwong/awesome-state-of-depth-completion)
 
 ## About VOICED <a name="about-voiced"></a>
-VOICED is an unsupervised depth completion method that is built on top of [XIVO][xivo_github]. Unlike previous methods, we build a scaffolding of the scene using the sparse depth measurements (~5% density for outdoors and ~0.5% to ~0.05% for indoors) and refines the scaffolding using a light-weight network.
+VOICED is an unsupervised depth completion method that is built on top of [XIVO][xivo_github]. Unlike previous methods, we build a scaffolding of the scene using the sparse depth measurements (~5% density for outdoors driving scenarios like KITTI and ~0.5% to ~0.05% for indoors scenes like VOID) and refines the scaffolding using a light-weight network.
 
 <p align="center">
 <img align="center" src="figures/digest_teaser_horizontal.png" width="800">
