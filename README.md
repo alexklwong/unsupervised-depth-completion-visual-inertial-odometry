@@ -5,9 +5,9 @@ Tensorflow implementation of *Unsupervised Depth Completion from Visual Inertial
 
 Published in RA-L January 2020 and ICRA 2020
 
-[[arxiv]](https://arxiv.org/pdf/1905.08616.pdf) [[poster]]()
+[[arxiv]](https://arxiv.org/pdf/1905.08616.pdf) [[poster]]() [[talk]](https://www.youtube.com/watch?v=oBCKO4TH5y0)
 
-Model have been tested on Ubuntu 16.04 using Python 3.5, Tensorflow 1.14
+Model have been tested on Ubuntu 16.04 using Python 3.5, 3.6 Tensorflow 1.14, 1.15
 
 Authors: [Alex Wong](http://web.cs.ucla.edu/~alexw/), [Xiaohan Fei](https://feixh.github.io/), Stephanie Tsuei
 
