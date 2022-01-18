@@ -25,7 +25,22 @@ If you use this work, please cite our paper:
 }
 ```
 
-**Table of Contents**
+### Looking our latest work in unsupervised depth completion?
+
+Check out our RAL 2021 and ICRA 2021 paper, [ScaffNet][scaffnet_github]: *Learning Topology from Synthetic Data for Unsupervised Depth Completion*
+
+[ScaffNet][scaffnet_github] is trained on synthetic data (SceneNet), but is able to generalize to novel real data (VOID and NYUv2)!
+
+Also, our ICCV 2021 oral paper, [KBNet][kbnet_github]: *Unsupervised Depth Completion with Calibrated Backprojection Layers*
+
+[KBNet][kbnet_github] runs at 15 ms/frame (67 fps) and improves over VOICED by 51.7% on indoors (VOID) and 13.7% on outdoors (KITTI)!
+
+### Coming soon!
+Thanks for all the interest and inquiries! 
+
+We are planning on releasing PyTorch versions of VOICED and ScaffNet over the coming months!
+
+### Table of Contents
 1. [About sparse-to-dense depth completion](#about-sparse-to-dense)
 2. [About VOICED](#about-voiced)
 3. [Setting up](#setting-up)
@@ -148,13 +163,33 @@ You may replace the restore_path and output_path arguments to evaluate your own 
 ## Related projects <a name="related-projects"></a>
 You may also find the following projects useful:
 
+- [KBNet][kbnet_github]: *Unsupervised Depth Completion with Calibrated Backprojection Layers*. A fast (15 ms/frame) and accurate unsupervised sparse-to-dense depth completion method that introduces a calibrated backprojection layer that improves generalization across sensor platforms. This work is published as an *oral* paper in the International Conference on Computer Vision (ICCV) 2021.
+- [ScaffNet][scaffnet_github]: *Learning Topology from Synthetic Data for Unsupervised Depth Completion*. An unsupervised sparse-to-dense depth completion method that first learns a map from sparse geometry to an initial dense topology from synthetic data (where ground truth comes for free) and amends the initial estimation by validating against the image. This work is published in the Robotics and Automation Letters (RA-L) 2021 and the International Conference on Robotics and Automation (ICRA) 2021.
+- [AdaFrame][adaframe_github]: *Learning Topology from Synthetic Data for Unsupervised Depth Completion*. An adaptive framework for learning unsupervised sparse-to-dense depth completion that balances data fidelity and regularization objectives based on model performance on the data. This work is published in the Robotics and Automation Letters (RA-L) 2021 and the International Conference on Robotics and Automation (ICRA) 2021.
+- [VOICED][voiced_github]: *Unsupervised Depth Completion from Visual Inertial Odometry*. An unsupervised sparse-to-dense depth completion method, developed by the authors. The paper introduces Scaffolding for depth completion and a light-weight network to refine it. This work is published in the Robotics and Automation Letters (RA-L) 2020 and the International Conference on Robotics and Automation (ICRA) 2020.
 - [VOID][void_github]: from *Unsupervised Depth Completion from Visual Inertial Odometry*. A dataset, developed by the authors, containing indoor and outdoor scenes with non-trivial 6 degrees of freedom. The dataset is published along with this work in the Robotics and Automation Letters (RA-L) 2020 and the International Conference on Robotics and Automation (ICRA) 2020.
 - [XIVO][xivo_github]: The Visual-Inertial Odometry system developed at UCLA Vision Lab. This work is built on top of XIVO. The VOID dataset used by this work also leverages XIVO to obtain sparse points and camera poses.
 - [GeoSup][geosup_github]: *Geo-Supervised Visual Depth Prediction*. A single image depth prediction method developed by the authors, published in the Robotics and Automation Letters (RA-L) 2019 and the International Conference on Robotics and Automation (ICRA) 2019. This work was awarded **Best Paper in Robot Vision** at ICRA 2019.
+- [AdaReg][adareg_github]: *Bilateral Cyclic Constraint and Adaptive Regularization for Unsupervised Monocular Depth Prediction.* A single image depth prediction method that introduces adaptive regularization. This work was published in the proceedings of Conference on Computer Vision and Pattern Recognition (CVPR) 2019.
 
+We also have works in adversarial attacks on depth estimation methods and medical image segmentation:
+- [Stereopagnosia][stereopagnosia_github]: *Stereopagnosia: Fooling Stereo Networks with Adversarial Perturbations.* Adversarial perturbations for stereo depth estimation, published in the Proceedings of AAAI Conference on Artificial Intelligence (AAAI) 2021.
+- [Targeted Attacks for Monodepth][targeted_attacks_monodepth_github]: *Targeted Adversarial Perturbations for Monocular Depth Prediction.* Targeted adversarial perturbations attacks for monocular depth estimation, published in the proceedings of Neural Information Processing Systems (NeurIPS) 2020.
+- [SPiN][spin_github] : *Small Lesion Segmentation in Brain MRIs with Subpixel Embedding.* Subpixel architecture for segmenting ischemic stroke brain lesions in MRI images, published in the Proceedings of Medical Image Computing and Computer Assisted Intervention (MICCAI) Brain Lesion Workshop 2021 as an **oral paper**.
+
+[kitti_dataset]: http://www.cvlibs.net/datasets/kitti/
+[nyu_v2_dataset]: https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html
 [void_github]: https://github.com/alexklwong/void-dataset
+[voiced_github]: https://github.com/alexklwong/unsupervised-depth-completion-visual-inertial-odometry
+[scaffnet_github]: https://github.com/alexklwong/learning-topology-synthetic-data
+[adaframe_github]: https://github.com/alexklwong/adaframe-depth-completion
+[kbnet_github]: https://github.com/alexklwong/calibrated-backprojection-network
 [xivo_github]: https://github.com/ucla-vision/xivo
 [geosup_github]: https://github.com/feixh/GeoSup
+[adareg_github]: https://github.com/alexklwong/adareg-monodispnet
+[stereopagnosia_github]: https://github.com/alexklwong/stereopagnosia
+[targeted_attacks_monodepth_github]: https://github.com/alexklwong/targeted-adversarial-perturbations-monocular-depth
+[spin_github]: https://github.com/alexklwong/subpixel-embedding-segmentation
 
 ## License and disclaimer <a name="license-disclaimer"></a>
 This software is property of the UC Regents, and is provided free of charge for research purposes only. It comes with no warranties, expressed or implied, according to these [terms and conditions](license). For commercial use, please contact [UCLA TDG](https://tdg.ucla.edu).
