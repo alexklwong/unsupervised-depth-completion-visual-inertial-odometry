@@ -107,6 +107,11 @@ unzip -o void_500.zip -d void_release/
 unzip -o void_1500.zip -d void_release/
 bash bash/setup_dataset_void.sh unpack-only
 ```
+If you encounter `error: invalid zip file with overlapped components (possible zip bomb)`. Please do the following
+```
+export UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE
+```
+and run the above again.
 
 For more detailed instructions on downloading and using VOID and obtaining the raw rosbags, you may visit the [VOID][void_github] dataset webpage.
 
