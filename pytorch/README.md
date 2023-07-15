@@ -1,13 +1,13 @@
 # Unsupervised Depth Completion from Visual Inertial Odometry
 Project **VOICED**: **De**pth **C**ompletion from **I**nertial **O**dometry and **V**ision
 
-Tensorflow implementation of *Unsupervised Depth Completion from Visual Inertial Odometry*
+**PyTorch** implementation of *Unsupervised Depth Completion from Visual Inertial Odometry*
 
 Published in RA-L January 2020 and ICRA 2020
 
 [[arxiv]](https://arxiv.org/pdf/1905.08616.pdf) [[poster]]() [[talk]](https://www.youtube.com/watch?v=oBCKO4TH5y0)
 
-Model have been tested on Ubuntu 16.04 using Python 3.5, 3.6 Tensorflow 1.14, 1.15
+Model have been tested on Ubuntu 20.04 using Python 3.7, 3.8 PyTorch 1.10
 
 Authors: [Alex Wong](http://vision.cs.yale.edu/members/alex-wong.html), [Xiaohan Fei](https://feixh.github.io/), Stephanie Tsuei
 
@@ -25,58 +25,118 @@ If you use this work, please cite our paper:
 }
 ```
 
-### Looking our latest work in unsupervised depth completion?
-
-Check out our RAL 2021 and ICRA 2021 paper, [ScaffNet][scaffnet_github]: *Learning Topology from Synthetic Data for Unsupervised Depth Completion*
-
-[ScaffNet][scaffnet_github] is trained on synthetic data (SceneNet), but is able to generalize to novel real data (VOID and NYUv2)!
-
-Also, our ICCV 2021 oral paper, [KBNet][kbnet_github]: *Unsupervised Depth Completion with Calibrated Backprojection Layers*
-
-[KBNet][kbnet_github] runs at 15 ms/frame (67 fps) and improves over VOICED by 51.7% on indoors (VOID) and 13.7% on outdoors (KITTI)!
-
 ### Table of Contents
-1. [About sparse-to-dense depth completion](#about-sparse-to-dense)
-2. [About VOICED](#about-voiced)
-3. [Setting up for Tensorflow implementation](#setting-up-tensorflow)
-4. [Setting up for PyTorch implementation](#setting-up-pytorch)
+1. [Setting up](#setting-up)
+2. [Training VOICED](#training-voiced)
+3. [Downloading pretrained models](#downloading-pretrained-models)
+4. [Evaluating VOICED](#evaluating-voiced)
 5. [Related projects](#related-projects)
 6. [License and disclaimer](#license-disclaimer)
 
-## About sparse-to-dense depth completion <a name="about-sparse-to-dense"></a>
-In the sparse-to-dense depth completion problem, we seek to infer the dense depth map of a 3-D scene using an RGB image and its associated sparse depth measurements in the form of a sparse depth map, obtained either from computational methods such as SfM (Strcuture-from-Motion) or active sensors such as lidar or structured light sensors.
+For all setup, training and evaluation code below, we assume that your current working directory is in
+```
+/path/to/unsupervised-depth-completion-visual-inertial-odometry/pytorch
+```
 
-| *Input RGB image from the VOID dataset*    | *Densified depth map -- colored and back-projected to 3-D* |
-| :----------------------------------------: | :--------------------------------------------------------: |
-| <img src="figures/void_teaser.jpg" width="400"> | <img src="figures/void_teaser.gif"> |
+to check that this is the case, you can use `pwd`.
+```
+pwd
+```
 
-| *Input RGB image from the KITTI dataset*    | *Densified depth map -- colored and back-projected to 3-D* |
-| :-----------------------------------------: | :--------------------------------------------------------: |
-| <img src="figures/kitti_teaser.jpg" width="400"> | <img src="figures/kitti_teaser.gif"> |
+## Setting up your virtual environment <a name="setting-up"></a>
+We will create a virtual environment with the necessary dependencies
+```
+virtualenv -p /usr/bin/python3.8 voiced-torch-py3env
+source voiced-torch-py3env/bin/activate
+pip install -r requirements.txt
+pip install torch==1.10.0+cu111 torchvision==0.11.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+```
 
-To follow the literature and benchmarks for this task, you may visit:
-[Awesome State of Depth Completion](https://github.com/alexklwong/awesome-state-of-depth-completion)
+## Setting up your datasets
+For datasets, we will use KITTI for outdoors and VOID for indoors
+```
+mkdir data
+bash bash/setup_dataset_kitti.sh
+bash bash/setup_dataset_void.sh
+```
 
-## About VOICED <a name="about-voiced"></a>
-VOICED is an unsupervised depth completion method that is built on top of [XIVO][xivo_github]. Unlike previous methods, we build a scaffolding of the scene using the sparse depth measurements (~5% density for outdoors driving scenarios like KITTI and ~0.5% to ~0.05% for indoors scenes like VOID) and refines the scaffolding using a light-weight network.
+Note: In this re-implementation, scaffolding is directly used in the forward function rather than treated as a pre-processing step so there is no need to create scaffolding in the dataset set up.
 
-<p align="center">
-<img align="center" src="figures/digest_teaser_horizontal.png" width="800">
-</p>
+The bash script downloads the VOID dataset using gdown. However, gdown intermittently fails. As a workaround, you may download them via:
+```
+https://drive.google.com/open?id=1kZ6ALxCzhQP8Tq1enMyNhjclVNzG8ODA
+https://drive.google.com/open?id=1ys5EwYK6i8yvLcln6Av6GwxOhMGb068m
+https://drive.google.com/open?id=1bTM5eh9wQ4U8p2ANOGbhZqTvDOddFnlI
+```
+which will give you three files `void_150.zip`, `void_500.zip`, `void_1500.zip`.
 
-This paradigm allows us to achieve the state-of-the-art on the unsupervised depth completion task while reducing parameters by as much as 80% compared to prior-arts. As an added bonus, our approach does not require top of the line GPUs (e.g. Tesla V100, Titan V) and can be deployed on much cheaper hardware.
+Assuming you are in the root of the repository, to construct the same dataset structure as the setup script above:
+```
+mkdir void_release
+unzip -o void_150.zip -d void_release/
+unzip -o void_500.zip -d void_release/
+unzip -o void_1500.zip -d void_release/
+bash bash/setup_dataset_void.sh unpack-only
+```
+If you encounter `error: invalid zip file with overlapped components (possible zip bomb)`. Please do the following
+```
+export UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE
+```
+and run the above again.
 
-## Setting up for Tensorflow implementation <a name="setting-up-tensorflow"></a>
-For the original Tensorflow implementation that was used in *Unsupervised Depth Completion from Visual Inertial Odometry*, please visit [VOICED Tensorflow](tensorflow/README.md). Note that the Tensorflow implementation is written for Tensorflow 1 and not 2. We currently do not have plans to support Tensorflow 2, but may revisit this in the future if there is enough interest in that platform.
+For more detailed instructions on downloading and using VOID and obtaining the raw rosbags, you may visit the [VOID][void_github] dataset webpage.
 
-Note: Dataset set up and data handling of Tensorflow version follows the original version of the code. To ensure that the code works properly, please treat the `tensorflow` directory as the root of the Tensorflow code repository.
+## Training VOICED <a name="training-voiced"></a>
+To train VOICED on the KITTI dataset, you may run
+```
+sh bash/train_voiced_kitti.sh
+```
 
-## Setting up for PyTorch implementation <a name="setting-up-pytorch"></a>
-We have released a PyTorch re-implementation of *Unsupervised Depth Completion from Visual Inertial Odometry*. Although hyper-parameters may different, the implementation is faithful to the original -- the necessary change to reproduce the results may be due to subtle differences between Tensorflow and PyTorch platforms. Please see [VOICED PyTorch](pytorch/README.md) for more source code and instructions.
+To train VOICED on the VOID datasets, you may run
+```
+sh bash/train_voiced_void1500.sh
+```
 
-Note: The PyTorch version follows the implementation pattern in [KBNet][kbnet_github] and [MonDi][mondi_github] and hence dataset (KITTI, VOID) setup and data loading functions will differ from the Tensorflow version. To ensure that the code works properly, please treat the `pytorch` directory as the root of the PyTorch code repository.
+To monitor your training progress, you may use Tensorboard
+```
+tensorboard --logdir trained_models/<model_name>
+```
 
-**Coming soon!** We will release pre-trained models for the PyTorch re-implementation in the upcoming months, stay tuned!
+## Downloading our pretrained models <a name="downloading-pretrained-models"></a>
+We have only retrained our VOID1500 model because KITTI takes much more time to train.
+```
+gdown https://drive.google.com/uc?id=18jr9l1YvxDUzqAa_S-LYTdfi6zN1OEE9
+unzip pretrained_models.zip
+```
+
+Note: `gdown` fails intermittently and complains about permission. If that happens, you may also download the models via:
+```
+https://drive.google.com/open?id=18jr9l1YvxDUzqAa_S-LYTdfi6zN1OEE9
+```
+
+We note that the [VOID][void_github] dataset has been improved (size increased from ~40K to ~47K frames) since this work was published in RA-L and ICRA 2020. We thank the individuals who reached out and gave their feedback. Hence, to reflect the changes, we retrained our model on VOID. We achieve better performance than the reported numbers in the paper, partly due to the larger dataset, re-implementation of the method, and also hyper-parameter changes.
+
+| Model            | MAE   | RMSE   | iMAE  | iRMSE  |
+| :--------------- | :---: | :----: | :---: | :----: |
+| VGG11 from paper | 85.05 | 169.79 | 48.92 | 104.02 |
+| VGG11 retrained  | 75.78 | 142.76 | 39.40 | 71.81  |
+
+To achieve the results, we trained for 20 epochs and use a starting learning rate of 1 x 10<sup>-4</sup> up to the 10th epoch, then 5 x 10<sup>-5</sup> for the remaining 10 epochs. The weight for smoothness term (w<sub>sm</sub>) is changed to 2.00 and the weight of sparse depth consistent term (w<sub>sz</sub>) is set to 0.50. This is reflected in the `train_voiced_void1500.sh` bash script.
+
+**Coming soon:** We will be releasing the pretrained model on KITTI in the upcoming months when we can find free cycles in our compute. Stay tuned!
+
+## Evaluating VOICED <a name="evaluating-voiced"></a>
+To evaluate the pretrained VOICED on the KITTI dataset, you may run
+```
+sh bash/run_voiced_kitti.sh
+```
+
+To evaluate the pretrained VOICED on the VOID dataset, you may run
+```
+sh bash/run_voiced_void1500.sh
+```
+
+You may replace the restore_path and output_path arguments to evaluate your own checkpoints
 
 ## Related projects <a name="related-projects"></a>
 You may also find the following projects useful:
@@ -103,7 +163,6 @@ We also have works in adversarial attacks on depth estimation methods and medica
 [scaffnet_github]: https://github.com/alexklwong/learning-topology-synthetic-data
 [adaframe_github]: https://github.com/alexklwong/adaframe-depth-completion
 [kbnet_github]: https://github.com/alexklwong/calibrated-backprojection-network
-[mondi_github]: https://github.com/alexklwong/mondi-python
 [xivo_github]: https://github.com/ucla-vision/xivo
 [geosup_github]: https://github.com/feixh/GeoSup
 [adareg_github]: https://github.com/alexklwong/adareg-monodispnet
