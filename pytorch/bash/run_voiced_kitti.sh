@@ -1,3 +1,5 @@
+#!/bin/bash
+
 export CUDA_VISIBLE_DEVICES=0
 
 python src/run_voiced.py \
@@ -5,7 +7,7 @@ python src/run_voiced.py \
 --sparse_depth_path validation/kitti/kitti_val_sparse_depth.txt \
 --ground_truth_path validation/kitti/kitti_val_ground_truth.txt \
 --depth_model_restore_path \
-    trained_voiced/kitti/vgg11_exp_12x320x768_lr0-12e5_18-6e5_24-3e5_30_co020_st080_sz020_sm001_po010/voiced-23000.pth \
+pretrained_models/kitti/voiced-kitti.pth \
 --input_channels_image 3 \
 --input_channels_depth 2 \
 --encoder_type vggnet11 \
@@ -21,5 +23,5 @@ python src/run_voiced.py \
 --save_outputs \
 --keep_input_filenames \
 --output_path \
-    trained_voiced/kitti/vgg11_exp_12x320x768_lr0-12e5_18-6e5_24-3e5_30_co020_st080_sz020_sm001_po010/evaluation_results/kitti_val \
+pretrained_models/kitti/evaluation_results/kitti_validation \
 --device gpu

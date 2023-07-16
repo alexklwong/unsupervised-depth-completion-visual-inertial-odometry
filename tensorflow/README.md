@@ -7,7 +7,7 @@ Published in RA-L January 2020 and ICRA 2020
 
 [[arxiv]](https://arxiv.org/pdf/1905.08616.pdf) [[poster]]() [[talk]](https://www.youtube.com/watch?v=oBCKO4TH5y0)
 
-Model have been tested on Ubuntu 16.04 using Python 3.5, 3.6 Tensorflow 1.14, 1.15
+Models have been tested on Ubuntu 16.04 using Python 3.5, 3.6 Tensorflow 1.14, 1.15
 
 Authors: [Alex Wong](http://vision.cs.yale.edu/members/alex-wong.html), [Xiaohan Fei](https://feixh.github.io/), Stephanie Tsuei
 
@@ -85,6 +85,17 @@ and run the above again.
 
 For more detailed instructions on downloading and using VOID and obtaining the raw rosbags, you may visit the [VOID][void_github] dataset webpage.
 
+In case you already have KITTI and/or VOID downloaded and in the right form, you may also set this up without the bash script
+```
+mkdir data
+ln -s /path/to/kitti_raw_data data/
+ln -s /path/to/kitti_depth_completion data/
+ln -s /path/to/void_release data/
+
+python setup/setup_dataset_kitti.py
+python setup/setup_dataset_void.py
+```
+
 ## Training VOICED <a name="training-voiced"></a>
 To train VOICED on the KITTI dataset, you may run
 ```
@@ -105,7 +116,7 @@ tensorboard --logdir trained_models/<model_name>
 To use our KITTI and VOID models, you can download
 ```
 gdown https://drive.google.com/uc?id=18jr9l1YvxDUzqAa_S-LYTdfi6zN1OEE9
-unzip pretrained_models.zip
+unzip pretrained_models-tensorflow.zip
 ```
 
 Note: `gdown` fails intermittently and complains about permission. If that happens, you may also download the models via:
@@ -149,6 +160,7 @@ You may also find the following projects useful:
 - [AdaReg][adareg_github]: *Bilateral Cyclic Constraint and Adaptive Regularization for Unsupervised Monocular Depth Prediction.* A single image depth prediction method that introduces adaptive regularization. This work was published in the proceedings of Conference on Computer Vision and Pattern Recognition (CVPR) 2019.
 
 We also have works in adversarial attacks on depth estimation methods and medical image segmentation:
+- [SUPs][sups_github]: *Stereoscopic Universal Perturbations across Different Architectures and Datasets..* Universal advesarial perturbations and robust architectures for stereo depth estimation, published in the Proceedings of Computer Vision and Pattern Recognition (CVPR) 2022.
 - [Stereopagnosia][stereopagnosia_github]: *Stereopagnosia: Fooling Stereo Networks with Adversarial Perturbations.* Adversarial perturbations for stereo depth estimation, published in the Proceedings of AAAI Conference on Artificial Intelligence (AAAI) 2021.
 - [Targeted Attacks for Monodepth][targeted_attacks_monodepth_github]: *Targeted Adversarial Perturbations for Monocular Depth Prediction.* Targeted adversarial perturbations attacks for monocular depth estimation, published in the proceedings of Neural Information Processing Systems (NeurIPS) 2020.
 - [SPiN][spin_github] : *Small Lesion Segmentation in Brain MRIs with Subpixel Embedding.* Subpixel architecture for segmenting ischemic stroke brain lesions in MRI images, published in the Proceedings of Medical Image Computing and Computer Assisted Intervention (MICCAI) Brain Lesion Workshop 2021 as an **oral paper**.
@@ -160,9 +172,11 @@ We also have works in adversarial attacks on depth estimation methods and medica
 [scaffnet_github]: https://github.com/alexklwong/learning-topology-synthetic-data
 [adaframe_github]: https://github.com/alexklwong/adaframe-depth-completion
 [kbnet_github]: https://github.com/alexklwong/calibrated-backprojection-network
+[mondi_github]: https://github.com/alexklwong/mondi-python
 [xivo_github]: https://github.com/ucla-vision/xivo
 [geosup_github]: https://github.com/feixh/GeoSup
 [adareg_github]: https://github.com/alexklwong/adareg-monodispnet
+[sups_github]: https://github.com/alexklwong/stereoscopic-universal-perturbations
 [stereopagnosia_github]: https://github.com/alexklwong/stereopagnosia
 [targeted_attacks_monodepth_github]: https://github.com/alexklwong/targeted-adversarial-perturbations-monocular-depth
 [spin_github]: https://github.com/alexklwong/subpixel-embedding-segmentation

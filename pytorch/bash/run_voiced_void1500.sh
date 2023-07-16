@@ -1,3 +1,5 @@
+#!/bin/bash
+
 export CUDA_VISIBLE_DEVICES=0
 
 python src/run_voiced.py \
@@ -5,7 +7,7 @@ python src/run_voiced.py \
 --sparse_depth_path testing/void/void_test_sparse_depth_1500.txt \
 --ground_truth_path testing/void/void_test_ground_truth_1500.txt \
 --depth_model_restore_path \
-    trained_voiced/void1500/vgg11_exp_12x480x640_lr0-1e4_10-5e5_20_co020_st080_sz050_sm200_po010_wd000/voiced-23000.pth \
+pretrained_models/void/voiced-void1500.pth \
 --input_channels_image 3 \
 --input_channels_depth 2 \
 --encoder_type vggnet11 \
@@ -21,5 +23,5 @@ python src/run_voiced.py \
 --save_outputs \
 --keep_input_filenames \
 --output_path \
-    trained_voiced/void1500/vgg11_exp_12x480x640_lr0-1e4_10-5e5_20_co020_st080_sz050_sm200_po010_wd000/evaluation_results/void1500 \
+pretrained_models/void/evaluation_results/void1500 \
 --device gpu
