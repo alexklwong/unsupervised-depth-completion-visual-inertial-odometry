@@ -1,7 +1,7 @@
 # Unsupervised Depth Completion from Visual Inertial Odometry
 Project **VOICED**: **De**pth **C**ompletion from **I**nertial **O**dometry and **V**ision
 
-Tensorflow implementation of *Unsupervised Depth Completion from Visual Inertial Odometry*
+Tensorflow and PyTorch implementations of *Unsupervised Depth Completion from Visual Inertial Odometry*
 
 Published in RA-L January 2020 and ICRA 2020
 
