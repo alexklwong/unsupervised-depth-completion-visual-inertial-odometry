@@ -7,9 +7,9 @@ Published in RA-L January 2020 and ICRA 2020
 
 [[arxiv]](https://arxiv.org/pdf/1905.08616.pdf) [[poster]]() [[talk]](https://www.youtube.com/watch?v=oBCKO4TH5y0)
 
-Tensorflow models have been tested on Ubuntu 16.04 using Python 3.5, 3.6 Tensorflow 1.14, 1.15
+Tensorflow models have been tested on Ubuntu 16.04 using Python 3.5, 3.6 Tensorflow 1.14, 1.15 on CUDA 10.0
 
-PyTorch models have been tested on Ubuntu 20.04 using Python 3.7, 3.8 PyTorch 1.10
+PyTorch models have been tested on Ubuntu 20.04 using Python 3.7, 3.8 PyTorch 1.10 on CUDA 11.1
 
 Authors: [Alex Wong](http://vision.cs.yale.edu/members/alex-wong.html), [Xiaohan Fei](https://feixh.github.io/), Stephanie Tsuei
 
